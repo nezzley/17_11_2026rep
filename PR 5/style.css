@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+    background-color: rgb(243, 241, 237);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 940px;
+    max-width: 100%;
+    background: #141414;
+}
+
+.resume {
+    border: 2px solid #5f5a54;
+    background: #f8f7f2;
+}
+
+header { 
+    background:rgb(61, 61, 61);
+    color: #f8f7f2;
+    padding: 100px 45px 28px;
+    
+}
+
+
+.logo {
+    text-align: right;
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f8f7f2;
+}
+
+h1 {
+    margin:  22px 0 0;
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 34px;
+    font-weight: normal;
+}
+
+h1 strong {
+    font-weight: 800;
+}
+
+.content {
+    display: flex;
+    grid-template-columns: 32%;
+    min-height: 500px;
+}
+
+.sibar {
+    font-size: 15px;
+    color: #f8f7f2;
+    padding: 32px 28px;
+    background-color: rgb(134, 129, 119);
+}
+
+.sibar-title {
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #c8c3d0;
+}
+
+.contact {
+    margin-bottom: 18px;
+}
+
+/* .contact strong {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.contact p, .contact a {
+    display: block;
+    margin: 0;
+    color: white;
+    font-size: 14px;
+    line-height: 1.5;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+} */
+
+.contact a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding-left: 15px;
+}
+
+.etoya { 
+    border-radius: 50%;
+    display: block;
+    width: 165px;
+    max-width: 100%;
+    border: 5px solid rgb(66, 63, 57);
+}
+
+li::before {
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

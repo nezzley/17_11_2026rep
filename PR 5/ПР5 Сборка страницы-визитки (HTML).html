@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Практическая работа: Стилизация страницы резюме (HTML + CSS)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0f141c;
+      color: #e2e8f0;
+      font-family: Arial, "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 24px 16px 80px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    header.task-header {
+      background: #18202c;
+      border: 1px solid #283548;
+      border-radius: 8px;
+      padding: 22px 26px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13.5px;
+      color: #94a3b8;
+    }
+
+    .grid-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .panel {
+      background: #18202c;
+      border: 1px solid #283548;
+      border-radius: 8px;
+      padding: 22px 26px;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      color: #38bdf8;
+      border-bottom: 1px solid #283548;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: bold;
+      color: #f1f5f9;
+      margin: 16px 0 8px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #cbd5e1;
+    }
+
+    /* Таблица справочника свойств */
+    .prop-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .prop-table th,
+    .prop-table td {
+      border: 1px solid #2b394d;
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .prop-table th {
+      background: #101622;
+      color: #38bdf8;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
+    }
+
+    .prop-table tr:nth-child(even) {
+      background: #131b26;
+    }
+
+    .prop-name {
+      font-family: monospace;
+      color: #f472b6;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .prop-example {
+      font-family: monospace;
+      color: #7dd3fc;
+      background: #090d14;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #1e293b;
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 12px;
+    }
+
+    /* Живой образец макета резюме */
+    .preview-sandbox {
+      background: #080b10;
+      border: 1px solid #232d3d;
+      border-radius: 8px;
+      padding: 30px 16px;
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      overflow-x: auto;
+    }
+
+  
+    .cv-paper {
+      width: 100%;
+      max-width: 640px;
+      background: #ffffff;
+      color: #222222;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      font-family: Arial, "Helvetica Neue", sans-serif;
+    }
+    .cv-paper div {
+        height: min-content;
+        font-size: 0;
+    }
+    .cv-paper img {
+        max-width: 100%;
+        
+        
+    }
+
+  
+
+    .task-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #111722;
+      border: 1px solid #243042;
+      border-radius: 6px;
+      padding: 12px 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .check-item:hover {
+      border-color: #38bdf8;
+    }
+
+    .check-item.done {
+      background: #0d1e1c;
+      border-color: #059669;
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      margin-top: 2px;
+      accent-color: #10b981;
+      cursor: pointer;
+    }
+
+    .check-body {
+      flex: 1;
+    }
+
+    .check-title {
+      font-weight: bold;
+      color: #f1f5f9;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .check-desc {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .progress-bar-wrap {
+      
+      top: 12px;
+      z-index: 100;
+      background: #1e293b;
+      border: 1px solid #38bdf8;
+      border-radius: 6px;
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      font-size: 13.5px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: #090d14;
+      border: 1px solid #283548;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #38bdf8;
+      transition: width 0.25s ease, background-color 0.25s ease;
+    }
+
+    .code-panel {
+      background: #090d14;
+      border: 1px solid #232d3d;
+      border-radius: 6px;
+      padding: 14px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.45;
+      overflow-x: auto;
+      margin-top: 8px;
+    }
+
+    .code-label {
+      color: #38bdf8;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="task-header">
+    <h1>Практическое задание: Вёрстка резюме разработчика (HTML5 + CSS)</h1>
+    <p class="subtitle">
+      Задание: сверстать страницу резюме с тёмной шапкой, левой колонкой контактов и круглой фотографией по представленному образцу.
+    </p>
+  </header>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-labels">
+      
+      <span id="progress-text" style="color: #38bdf8; font-family: monospace;">Выполнено: 0 из 12 критериев</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-bar"></div>
+    </div>
+  </div>
+
+  <div class="grid-wrap">
+
+    <!-- РАЗДЕЛ 1: ОБРАЗЕЦ МАКЕТА -->
+    <section class="panel">
+      <h2>1. Визуальный эталон итоговой страницы</h2>
+      <p>
+        Вот как должна выглядеть страница в браузере. Макет адаптирован для начинающих: круглая аватарка расположена внутри боковой колонки, двухколоночная структура строится через <code>display: flex</code>, а маркеры списка оформлены кастомными стрелками-иконками.
+      </p>
+
+      <div class="preview-sandbox">
+        <div class="cv-paper">
+            <div><img src="cv.png" alt=""></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- РАЗДЕЛ 2: СПРАВОЧНИК СВОЙСТВ -->
+    <section class="panel">
+      <h2>2. Справочник свойств CSS для выполнения задания</h2>
+      <table class="prop-table">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Свойство</th>
+            <th style="width: 45%;">Зачем нужно в этом резюме</th>
+            <th style="width: 30%;">Пример в макете</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="prop-name">box-sizing</span></td>
+            <td>Включает внутренние отступы и рамки в общий размер блока, чтобы вёрстка не разъезжалась в стороны.</td>
+            <td><span class="prop-example">box-sizing: border-box;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">display: flex</span></td>
+            <td>Ставит прямые дочерние блоки в один горизонтальный ряд (левая колонка и правый контент рядом).</td>
+            <td><span class="prop-example">display: flex;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">flex-shrink</span></td>
+            <td><strong>Запрещает сжимать блок.</strong> Значение <code>0</code> гарантирует, что левая колонка контактов не сплющится, даже если в правом блоке будет очень много текста.</td>
+            <td><span class="prop-example">flex-shrink: 0;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">flex: 1</span></td>
+            <td>Указывает правому блоку занять абсолютно всё оставшееся свободное пространство по ширине.</td>
+            <td><span class="prop-example">flex: 1;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">list-style-image / list-style-type</span></td>
+            <td>Заменяет стандартные круглые маркеры списка на кастомные иконки, мини-изображения или строгие квадратные метки.</td>
+            <td><span class="prop-example">list-style-type: square;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">max-width</span></td>
+            <td>Задает предельную ширину листа резюме на экране, чтобы строки не растягивались на весь монитор.</td>
+            <td><span class="prop-example">max-width: 640px;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">margin: 0 auto</span></td>
+            <td>Центрирует блочный элемент по горизонтали страницы за счет автоматических полей слева и справа.</td>
+            <td><span class="prop-example">margin: 30px auto;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">border-radius</span></td>
+            <td>Скругление углов. Значение <code>50%</code> при равных ширине и высоте превращает фото в идеальный круг.</td>
+            <td><span class="prop-example">border-radius: 50%;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">object-fit</span></td>
+            <td>Защищает фотографию от сплющивания и деформации при принудительно заданной ширине и высоте.</td>
+            <td><span class="prop-example">object-fit: cover;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">border / border-bottom</span></td>
+            <td>Отрисовывает рамку вокруг элемента либо аккуратную разделительную черту снизу/сверху.</td>
+            <td><span class="prop-example">border-bottom: 1px solid #444;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">letter-spacing</span></td>
+            <td>Регулирует расстояние между буквами (кернинг) для стильных строгих заголовков.</td>
+            <td><span class="prop-example">letter-spacing: 1px;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">text-transform</span></td>
+            <td>Преобразует буквы в заглавные (uppercase) без необходимости перепечатывать текст в HTML.</td>
+            <td><span class="prop-example">text-transform: uppercase;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">line-height</span></td>
+            <td>Высота строки. Добавляет «воздух» между строками текста, повышая удобство чтения.</td>
+            <td><span class="prop-example">line-height: 1.6;</span></td>
+          </tr>
+          <tr>
+            <td><span class="prop-name">box-shadow</span></td>
+            <td>Добавляет мягкую тень листу резюме, визуально приподнимая его над темным фоном окна браузера.</td>
+            <td><span class="prop-example">box-shadow: 0 10px 30px rgba(0,0,0,0.5);</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- РАЗДЕЛ 3: КРИТЕРИИ И ЧЕК-ЛИСТ СДАЧИ -->
+    <section class="panel">
+      <h2>3. Критерии сдачи практической работы</h2>
+      <p>
+        Работа принимается на защиту только при выполнении всех требований чек-листа без пропусков.
+      </p>
+
+      <div class="task-checklist">
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 1. Разделение файлов разметки и стилей</div>
+            <div class="check-desc">Проект содержит строго два отдельных файла: разметка в <code>index.html</code>, таблица стилей в <code>style.css</code>. Подключение оформлено через тег <code>&lt;link&gt;</code> в блоке <code>&lt;head&gt;</code>. Инлайн-стили отсутствуют.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 2. Глобальный сброс блочной модели</div>
+            <div class="check-desc">В начале CSS прописано универсальное правило для всех элементов страницы: обнулены заводские браузерные отступы и включен режим расчета габаритов <code>border-box</code>.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 3. Ограничение ширины и центрирование листа</div>
+            <div class="check-desc">Основной контейнер резюме имеет ограничение по максимальной ширине, белый фон и выровнен строго по центру экрана браузера через автоматические внешние поля.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 4. Присутствие всех смысловых блоков</div>
+            <div class="check-desc">В разметке созданы: верхняя темная плашка с именем и монограммой, левая колонка для фото и контактов, правая колонка для биографии и перечня навыков.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 5. Двухколоночный макет через display: flex</div>
+            <div class="check-desc">Родителю боковой колонки и текстовой части задан флекс-контейнер, благодаря чему колонки аккуратно выстроены в один горизонтальный ряд.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 6. Защита колонки от сжатия (flex-shrink)</div>
+            <div class="check-desc">Для левой колонки явно задана фиксированная ширина и отключено сжатие (<code>flex-shrink: 0</code>), а правый текстовый блок занимает все оставшееся место (<code>flex: 1</code>).</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 7. Оформление аватара в идеальный круг</div>
+            <div class="check-desc">Фотография имеет строго равную ширину и высоту, скруглена в круг через 50%, обрамлена контрастной рамкой и защищена от искажения пропорций лица.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 8. Структура контактного блока</div>
+            <div class="check-desc">Каждый пункт контактов разделен: подпись выведена отдельной строкой жирным начертанием, значение расположено под ней. Ссылки на почту и профиль кликабельны.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 9. Кастомное оформление маркеров списка (навыки)</div>
+            <div class="check-desc">Список ключевых навыков избавлен от дефолтных круглых точек браузера: применены квадратные метки (<code>list-style-type: square</code>) либо кастомные иконки через <code>list-style-image</code>.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 10. Разделительные границы и типографика шапки</div>
+            <div class="check-desc">Имя выделено линиями сверху и снизу, использован регистр uppercase и межбуквенный интервал. Заголовки секций имеют подчеркивание.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 11. Тень листа и визуальный объем</div>
+            <div class="check-desc">Листу резюме задана мягкая многослойная тень, создающая визуальный эффект реального документа на темном столе. Настроены интерактивные ссылки с реакцией на наведение.</div>
+          </div>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" class="task-box">
+          <div class="check-body">
+            <div class="check-title">Критерий 12. Чистота исходного кода</div>
+            <div class="check-desc">В коде нет лишних пустых строк, имена классов написаны осмысленно в нижнем регистре через дефис (kebab-case), код выровнен форматировщиком.</div>
+          </div>
+        </label>
+
+      </div>
+    </section>
+
+  </div>
+
+</div>
+
+<script>
+  const checkboxes = document.querySelectorAll('.task-box');
+  const progressText = document.getElementById('progress-text');
+  const progressBar = document.getElementById('progress-bar');
+
+  function updateProgress() {
+    let checkedCount = 0;
+    const totalCount = checkboxes.length;
+
+    checkboxes.forEach(cb => {
+      const parent = cb.closest('.check-item');
+      if (cb.checked) {
+        parent.classList.add('done');
+        checkedCount++;
+      } else {
+        parent.classList.remove('done');
+      }
+    });
+
+    const percent = Math.round((checkedCount / totalCount) * 100);
+    progressBar.style.width = percent + '%';
+    progressText.textContent = `Выполнено: ${checkedCount} из ${totalCount} критериев (${percent}%)`;
+
+    if (checkedCount === totalCount) {
+      progressBar.style.backgroundColor = '#10b981';
+      progressText.style.color = '#34d399';
+    } else {
+      progressBar.style.backgroundColor = '#38bdf8';
+      progressText.style.color = '#38bdf8';
+    }
+  }
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', updateProgress);
+  });
+</script>
+
+</body>
+</html>
